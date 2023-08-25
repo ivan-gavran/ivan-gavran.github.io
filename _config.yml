@@ -1,0 +1,86 @@
+# Site settings
+site: ivan-gavran
+title: Ivan Gavran - blog
+keywords: ivan, gavran, blog, software, verification, AI
+description: >-
+  ivan-gavran: technical blog
+lang: en-UK
+timezone:  Europe/Vienna
+repo: https://github.com/ivan-gavran/ivan-gavran.github.io
+#google_verify:      XXX # Put your Google Verification here
+# google_analytics: XXX # Put your Google Analytics code
+#discus-identifier:  XXX
+
+# Author settings
+author:
+  name: Ivan Gavran
+  # bio: formal verification || artificial intelligence
+  picture: assets/images/robotReadingEverythingBright.png 
+  github: ivan-gavran # github username
+  #twitter: onepase # twitter username
+  #facebook: onepase # facebook username
+  #instagram: onepase # instagram username
+  #youtube: https://www.youtube.com/channel/UCMmAto-wxBootXN91AzBiDg # youtube username
+  linkedin: ivan-gavran-239769208 # linkedin username
+  #email: your-email@email.com # email adress
+
+
+# URL settings
+url: "https://ivan-gavran.github.io" # Domain Name of host. [username].github.io for github pages
+permalink: pretty
+
+markdown: kramdown
+kramdown:
+  auto_ids: true
+  input: GFM
+  syntax_highlighter: rouge
+
+
+exclude:
+  - .jekyll-cache
+  - .obsidian
+  - Gemfile
+  - Gemfile.lock
+  - LICENSE.md
+  - README.md
+  - CONTRIBUTING.md
+
+plugins:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-relative-links
+  - jemoji
+  - jekyll-seo-tag
+paginate: 7
+paginate_path: "/page/:num"
+
+collections:
+  pages:
+    output: true
+    permalink: /:name
+  posts:
+    output: true
+    permalink: /:slug
+  
+defaults:
+  -
+    scope:
+      path: ""
+    values:
+      layout: "default"
+  -
+    scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+
+relative_links:
+  enabled:     true
+  collections: false
