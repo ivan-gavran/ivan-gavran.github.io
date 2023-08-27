@@ -1,9 +1,9 @@
 # Site settings
 site: ivan-gavran
-title: Ivan Gavran - blog
+title: Ivan Gavran
 keywords: ivan, gavran, blog, software, verification, AI
 description: >-
-  ivan-gavran: technical blog
+  Writings on software correctness, AI, formal verification, and other technical topics.
 lang: en-UK
 timezone:  Europe/Vienna
 repo: https://github.com/ivan-gavran/ivan-gavran.github.io
