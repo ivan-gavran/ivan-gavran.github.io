@@ -13,7 +13,7 @@ This is a summary of the introduction to my PhD thesis defense talk. The talk wa
 <figure style="width:90%">
   <img
   class="centered"
-  src="{{ site.url }}/assets/posts/2023-08-25/robotInHospital.webp"
+  src="{{ site.url }}/assets/posts/2023-08-25_robotic_systems_FM/robotInHospital.webp"
   alt="A hospital robot">
   <figcaption>Robots helping in a hospital</figcaption>
 </figure>
@@ -43,7 +43,7 @@ And given that using FM does not come for free (there is a somewhat steep learni
 <figure style="width:90%">
   <img
   class="centered"
-  src="{{ site.url }}/assets/posts/2023-08-25/robotHumanDuel.webp">
+  src="{{ site.url }}/assets/posts/2023-08-25_robotic_systems_FM/robotHumanDuel.webp">
   <figcaption style="font-size: 12px">Picture by Blutgruppe/Corbis</figcaption>
 </figure>
 
