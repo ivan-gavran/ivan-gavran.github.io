@@ -37,12 +37,12 @@ A typical way of dealing with the problem of many possible interleavings is by i
 
 ### Actor Model
 
-As a way to avoid the problems of dealing with shared state, a different programming model is proposed - the actor model. In the actor model, each computation is an actor, which can only access its local variables. The actors communicate by sending messages to each other.
+As a way to avoid the problems of dealing with shared state, a different programming model is proposed - the actor model. In the actor model, each computation is an actor, which can only access its local variables. The actors communicate by sending messages to each other, and their computation is triggered by messages received from other actors.
 
 <figure style="width:100%">
   <img
   class="centered"
-  src="{{ site.url }}/assets/posts/2023-11-11-0027_actor_model_CW/actorModelScheme.png"
+  src="{{ site.url }}/assets/posts/2023-11-11-0027_actor_model_CW/actorModelScheme.jpg"
   alt="The actor model scheme">
   <figcaption>Actor model (source: <a href="https://www.brianstorti.com/the-actor-model/">The actor model in 10 minutes</a>)</figcaption>
 </figure>
@@ -50,9 +50,9 @@ As a way to avoid the problems of dealing with shared state, a different program
 
 
 
-Each actor has its mailbox in which messages are stored in the first-in-first-out fashion. (This means that the order between messages by the same sender is preserved, but tells nothing about the order of messages sent by different senders.) Upon receipt of a message, the actor 1) updates its internal state, 2) sends messages to other contracts, or 3) instantiates new actors.
+Each actor has its mailbox in which messages are stored. Typically, they are stored in the first-in-first-out fashion - this means that the order between messages by the same sender is preserved, but tells nothing about the order of messages sent by different senders. Upon receipt of a message, the actor 1) updates its internal state, 2) sends messages to other actors, or 3) instantiates new actors.
 
-Because actors can only communicate by explicitly messaging each other and cannot access each other’s state, there is no need for locks. (Actors do not solve all concurrency problems, of course: race conditions can still happen if messages are not designed well: think of our example from the shared state where each variable read and write is a message exchanged between two actors.)
+Because actors can only communicate by explicitly messaging each other and cannot access each other’s state, there is no need for locks. 
 
 
 
@@ -73,7 +73,9 @@ Exactly this concurrent aspect was responsible for one of the most notorious att
 
 ## 3. CosmWasm actor model
 
-Knowing about the re-entrancy attack, the designers of CosmWasm decided to model their contracts as actors. That means there is no calling into other contracts, but only sending them messages, which are executed at some later point. In that sense, it is very similar to the actor model. Unlike the theoretical actor model, the order of message handling in CW is strictly determined. 
+Knowing about the re-entrancy attack, the designers of CosmWasm decided to model their contracts as actors. That means there is no calling into other contracts, but only sending them messages, which are executed at some later point. In other words, a contract necessarily modifies its local state first, and only then yields control to other contracts (thus avoiding reentrancy-style attacks).
+
+In that sense, CosmWasm's execution model is very similar to the actor model as we saw it earlier. Unlike in that description, the order of message handling in CW is strictly determined. 
 
 ### Messages and their handling order
 
@@ -106,7 +108,7 @@ Note the two (problematic) properties of this way of executing messages:
 - If handling of any message fails, the whole transaction fails.
 - There is no (direct) way to get a return value of a message. 
 
-To add a bit more flexibility to messages, CosmWasm introduced _submessages_. Submessages enable handling failures and receiving responses.
+To add a bit more flexibility to messages, CosmWasm introduced _submessages_. Submessages enable both handling failures and receiving return values (as responses to submessages).
 
 ### Submessages, their handling order, and dealing with their failures
 
@@ -114,7 +116,7 @@ Submessages are just like messages, except that they carry a special `ReplyOn` l
 
 A message with the label `ReplyOn:Error` will on failure not revert the whole transaction, but a failure will be handled by the sender. The label `ReplyOn:Success` makes it easy for the sender to receive a return value from the receiver. The label `ReplyOn:Always` will give a chance to the sender to handle both the success and the failure, and the message with the `ReplyOn:Never` label is the same as the plain message - no response handling, and reverting the whole transaction upon failure. For more details on what gets handled when, have a look at this table in [SEMANTICS.md](https://github.com/CosmWasm/cosmwasm/blob/main/SEMANTICS.md#order-and-rollback).
 
-The ordering of submessages is exactly like messages - depth first, with the addition that handling of responses is treated like a message immediately sent.
+The ordering of submessages is exactly like messages - depth first, with the addition that handling of responses is treated like a message immediately sent in an opposite direction.
 (Interestingly, this ordering rule was not always that way and is therefore a common point of confusion - see the [PR#1922](https://github.com/CosmWasm/cosmwasm/pull/1922).)
 
 Consider an example similar to the previous one - except that now there is one submessage sent from contract `B` to contract `C`.
@@ -137,13 +139,13 @@ Its tree-like representation looks like this:
 
 
 
-Then, the order or message handling is the following: `A`, `B::x`, `gov::v`, `C::z`, `reply(C->B)`, `staking::w`, `bank::y`. Here, the reply is called if and only if `C`’s handling of the message `z` returns success.
+Then, the order of message handling is the following: `A`, `B::x`, `gov::v`, `C::z`, `reply(C->B)`, `staking::w`, `bank::y`. Here, the reply is called if and only if `C`’s handling of the message `z` returns success.
 
 #### Handling of submessage responses and failures
 
-After the submessage handling is finished, the caller gets a chance to handle the result (if the appropriate `ReplyOn` label is present) in its reply function. One important point about reply is that its return value overwrites the return value of the original caller. Quouting from [SEMANTICS.md](https://github.com/CosmWasm/cosmwasm/blob/main/SEMANTICS.md):
+After the submessage handling is finished, the caller gets a chance to handle the result (if the appropriate `ReplyOn` label is present) in its `reply` function. One important point about reply is that its return value overwrites the return value of the original caller. Quoting from [SEMANTICS.md](https://github.com/CosmWasm/cosmwasm/blob/main/SEMANTICS.md):
 
-> “If reply returns data: Some(value) in the Response object, we will overwrite the data field returned by the caller. That is, if execute returns data: Some(b"first thought") and the reply (with all the extra information it is privy to) returns data: Some(b"better idea"), then this will be returned to the caller of execute (either the client or another transaction), just as if the original execute and returned data: Some(b"better idea")"
+> “If `reply` returns `data: Some(value)` in the `Response` object, we will overwrite the `data` field returned by the caller. That is, if `execute` returns `data: Some(b"first thought")` and the `reply` (with all the extra information it is privy to) returns `data: Some(b"better idea")`, then this will be returned to the caller of `execute` (either the client or another transaction), just as if the original execute [had] returned `data: Some(b"better idea")`"
 
 If there are multiple submessages, the last one overwrites all the previous ones.
 
