@@ -8,7 +8,7 @@ mathjax: true
 ---
 
 
-This is a summary of the introduction to my PhD thesis defense talk. The talk was based on my work at Max Planck Institute for Software Systems, where I was exploring how one can combine formal methods (FM) and autnomous systems. 
+This is a summary of the introduction to my PhD thesis defense talk. The talk was based on my work at Max Planck Institute for Software Systems, where I was exploring how one can combine formal methods (FM) and autonomous systems. 
 
 <figure style="width:90%">
   <img
