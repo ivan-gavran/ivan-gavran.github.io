@@ -82,3 +82,4 @@ Given how much of the world runs on software, increasing the level of trust in o
 ---
 
 <p style="font-size: 12px"> This post was first published on 6.6.2022, <a href="https://medium.com/@ivangavran/robotic-systems-powered-by-formal-methods-f1e5b91093f2">here</a>.</p>
+
