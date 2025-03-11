@@ -11,6 +11,14 @@ mathjax: true
 There were many claims of accomplishing full autonomy, but they always turned out to be false.
 The main challenge lies in handling very rare scenarios, those never seen in the training data.
 
+
+<figure style="width:100%">
+  <img
+  class="centered"
+  src="{{ site.url }}/assets/posts/road_test/robotDrivingAFiaker.webp"
+  />
+</figure>
+
 And yet, how do we decide if a human is ready to drive autonomously?
 Well, we mostly give candidates a pen-and-paper exam, followed by an hour-long drive around their area.
 And that's it, they're *deemed fully autonomous*.
