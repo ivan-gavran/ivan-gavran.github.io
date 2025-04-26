@@ -2,7 +2,7 @@
 layout: post
 title:  "AI drivers cannot just pass the road test; AI coders cannot just write a couple of tests"
 date:   2025-03-09T00:00:00+00:00
-tags: []
+tags: [artificial intelligence, formal methods, program synthesis]
 published: true
 mathjax: true
 ---
