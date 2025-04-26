@@ -2,7 +2,7 @@
 layout: post
 title:  "Robotic Systems, Powered by Formal Methods"
 date:   2023-08-25T00:00:00+00:00
-tags: [formal methods, robotics, artifical intelligence]
+tags: [formal methods, robotics, artificial intelligence]
 published: true
 mathjax: true
 ---
