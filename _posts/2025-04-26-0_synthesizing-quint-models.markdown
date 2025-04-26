@@ -36,8 +36,8 @@ Our method allows the auditor-user to automate parts of the MBT workflow, or tak
   <img
   class="centered"
   src="{{ site.url }}/assets/posts/tamedLLMs/algoSchemeWhiteBackground.png"
-  alt="Figure 1: The actor model scheme">
-  <figcaption>Iterative repair of generated models</figcaption>
+  alt="Figure 1: Iterative repair of generated models">
+  <figcaption>Figure 1: Iterative repair of generated models</figcaption>
 </figure>
 
 As a first step, we transpile the smart contract(s) into a stub of the model: the stub captures interleavings of different actions, but does not capture the actions’ semantics. At this point, the auditor can use generated stubs to run fuzzing tests against the contract. 
