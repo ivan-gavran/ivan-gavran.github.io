@@ -295,6 +295,68 @@ img.centered {
   
 }
 
+figcaption {
+  font-size: 0.9em;
+  font-style: italic;
+  text-align: center;
+  margin-top: 10px;
+  color: var(--primary-font-color);
+  display: block;
+}
+
+/* Specific styling for wrapped figures */
+figure:has(img.wrapped-right) {
+  float: right;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  max-width: 40%;
+}
+
+figure:has(img.wrapped) {
+  float: left;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  max-width: 40%;
+}
+
+figure:has(img.wrapped-right) figcaption,
+figure:has(img.wrapped) figcaption {
+  text-align: center;
+  margin-top: 5px;
+  font-size: 0.8em;
+}
+
+/* Reset the individual image float when inside a figure */
+figure img.wrapped-right,
+figure img.wrapped {
+  float: none;
+  margin: 0;
+  max-width: 100%;
+  display: block;
+}
+
+img.floating {
+  float: left;
+  margin-left: 100px;
+  margin-bottom: 100px;
+}
+
+img.wrapped {
+  display: block;
+  float: left;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  max-width: 40%;
+}
+
+img.wrapped-right {
+  display: block;
+  float: right;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  max-width: 40%;
+}
+
 
 figure {
   margin: 0;
