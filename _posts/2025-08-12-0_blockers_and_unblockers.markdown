@@ -35,7 +35,7 @@ Assume we are to implement a new algorithm.
 We may first sketch the idea on paper, and then go ahead and describe the idea in a specification language.
 The assistant then reads this description and warns us about the properties that do not hold in our design.
 We can iterate on this step until the assistant cannot find any more problems in it.
-The whole process happens before the implementation is even started, thus saving us a lot of time.<sup>3</sup>
+The whole process happens before the implementation has even started, thus saving us a lot of time.<sup>3</sup>
 
 Unfortunately, there are some unsatisfactory parts of the workflow:
  1. We need to decide on the level of abstraction at which we describe the idea to the assistant. If we make a wrong decision here, we may still miss a problem.
@@ -57,7 +57,7 @@ Notes:
 
 1: A common objection is that this ‘gets the job done’ but hinders learning. That may be true, but the same thing likely happened in the past as well, when we were not in the right frame of mind: sometimes we just want to find a solution to a side-problem that’s blocking our main ideas; other times we want to dive deeper and learn more.
 
-2: For instance, Lean, FizzBee, TLA+, SPIN, [Quint](https://quint-lang.org/) TODO: ADD LINKS
+2: Some languages to interact with blocking assistant are [TLA+](https://lamport.azurewebsites.net/tla/tla.html), [Lean](https://lean-lang.org/), [FizzBee](https://fizzbee.io/), [Promela](https://spinroot.com/spin/Man/Intro.html), or [Quint](https://quint-lang.org/)
 
 3: Compare this to the workflow when not using blocker assistants: 
  - We write the idea on paper (or a markdown page)
