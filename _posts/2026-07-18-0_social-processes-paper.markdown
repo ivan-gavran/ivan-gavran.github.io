@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "The Case Against Formal Verification, 50 Years Later"
-date:   2026-07-18T00:00:00+00:00
+date:   2026-08-15T00:00:00+00:00
 tags: [formal methods]
 published: true
 mathjax: true
